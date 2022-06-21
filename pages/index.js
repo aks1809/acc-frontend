@@ -102,13 +102,33 @@ const Index = () => {
   useEffect(() => {
     console.log(socket.connected);
     socket.on('entry', data => {
-      // setActiveTransactions({
-      //   ...activeTransactions,
-      //   [data.transaction_id]: {
-      //     ...activeTransactions[data.transaction_id],
-      //   }
-      // });
+      const transaction_id = parseInt(data?.transaction_id, 10);
+      console.log(transaction_id, activeTransactions);
+      // if (
+      //   activeTransactions[transaction_id].bag_belt_id < 3 &&
+      //   !data?.image_location
+      // ) {
+      //   // valid bag loader
+      //   // consider only label
+      //   setActiveTransactions({
+      //     ...activeTransactions,
+      //     [transaction_id]: {
+      //       ...activeTransactions[transaction_id],
+      //       bag_count: activeTransactions[transaction_id].bag_count + 1
+      //     }
+      //   });
+      // } else {
+      //   // consider only printing
+      //   setActiveTransactions({
+      //     ...activeTransactions,
+      //     [transaction_id]: {
+      //       ...activeTransactions[transaction_id],
+      //       bag_count: activeTransactions[transaction_id].bag_count + 1
+      //     }
+      //   });
+      // }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket]);
 
   if (shipmentFormOpen) {
