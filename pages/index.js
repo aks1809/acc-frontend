@@ -52,6 +52,7 @@ const Index = () => {
 
   useEffect(() => {
     if (serviceMutation.isSuccess) {
+      console.log(serviceMutation.data);
       setActiveTransactions({
         ...activeTransactions,
         [serviceMutation?.data?.data?.id]: {
@@ -100,36 +101,47 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
-    console.log(socket.connected);
     socket.on('entry', data => {
       const transaction_id = parseInt(data?.transaction_id, 10);
-      console.log(transaction_id, activeTransactions);
-      // if (
-      //   activeTransactions[transaction_id].bag_belt_id < 3 &&
-      //   !data?.image_location
-      // ) {
-      //   // valid bag loader
-      //   // consider only label
-      //   setActiveTransactions({
-      //     ...activeTransactions,
-      //     [transaction_id]: {
-      //       ...activeTransactions[transaction_id],
-      //       bag_count: activeTransactions[transaction_id].bag_count + 1
-      //     }
-      //   });
-      // } else {
-      //   // consider only printing
-      //   setActiveTransactions({
-      //     ...activeTransactions,
-      //     [transaction_id]: {
-      //       ...activeTransactions[transaction_id],
-      //       bag_count: activeTransactions[transaction_id].bag_count + 1
-      //     }
-      //   });
-      // }
+      if (activeTransactions && transaction_id in activeTransactions) {
+        if (
+          activeTransactions[transaction_id].bag_belt_id < 3 &&
+          !data?.image_location
+        ) {
+          // valid bag loader
+          // consider only label
+          setActiveTransactions({
+            ...activeTransactions,
+            [transaction_id]: {
+              ...activeTransactions[transaction_id],
+              bag_count: activeTransactions[transaction_id].bag_count + 1
+            }
+          });
+        } else {
+          // consider only printing
+          setActiveTransactions({
+            ...activeTransactions,
+            [transaction_id]: {
+              ...activeTransactions[transaction_id],
+              bag_count: activeTransactions[transaction_id].bag_count + 1
+            }
+          });
+        }
+      }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [socket]);
+    socket.on('stop', data => {
+      const transaction_id = parseInt(data?.transaction_id, 10);
+      if (activeTransactions && transaction_id in activeTransactions) {
+        setActiveTransactions({
+          ...activeTransactions,
+          [transaction_id]: {
+            ...activeTransactions[transaction_id],
+            stopped_at: new Date()
+          }
+        });
+      }
+    });
+  }, [socket, activeTransactions]);
 
   if (shipmentFormOpen) {
     return (
