@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { GrFlag } from 'react-icons/gr';
 import { IoMdAdd } from 'react-icons/io';
 import { Avatar, Button } from '@material-ui/core';
 import { BiRightArrowAlt } from 'react-icons/bi';
-import { msToTime } from 'utils/globalFunctions';
+// import { msToTime } from 'utils/globalFunctions';
 import Container from './AnalyticsCard.styles';
 
 const AnalyticsCard = ({
@@ -16,18 +16,18 @@ const AnalyticsCard = ({
   bagModifyModalOpen,
   setDetailModalOpen
 }) => {
-  const [timeDifference, setTimeDifference] = useState(0);
+  // const [timeDifference, setTimeDifference] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(
-      () => () =>
-        setTimeDifference(new Date(data?.created_at).toLocaleTimeString()),
-      1000
-    );
-    return () => {
-      clearInterval(interval);
-    };
-  }, [data?.created_at]);
+  // useEffect(() => {
+  //   const interval = setInterval(
+  //     () => () =>
+  //       setTimeDifference(new Date(data?.created_at).toLocaleTimeString()),
+  //     1000
+  //   );
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, [data?.created_at]);
 
   return (
     <Container isError={data?.count_finished_at}>
@@ -51,12 +51,12 @@ const AnalyticsCard = ({
           </div>
         </div>
         <div className="timer">
-          {data?.count_finished_at
+          {/* {data?.count_finished_at
             ? msToTime(
                 new Date(data?.count_finished_at).getTime() -
                   new Date(data?.created_at).getTime()
               )
-            : timeDifference}
+            : timeDifference} */}
         </div>
       </div>
       <div className="count-container">

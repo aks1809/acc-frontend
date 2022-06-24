@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import InfoModal from 'components/InfoModal';
-import { msToTime } from 'utils/globalFunctions';
+// import { msToTime } from 'utils/globalFunctions';
 
 const AddMoreBagsModal = ({
   open,
@@ -11,17 +11,17 @@ const AddMoreBagsModal = ({
   handleSubmit,
   handleStop
 }) => {
-  const [timeDifference, setTimeDifference] = useState(0);
+  // const [timeDifference, setTimeDifference] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(
-      () => setTimeDifference(new Date(open?.created_at).toLocaleTimeString()),
-      1000
-    );
-    return () => {
-      clearInterval(interval);
-    };
-  }, [open?.created_at]);
+  // useEffect(() => {
+  //   const interval = setInterval(
+  //     () => setTimeDifference(new Date(open?.created_at).toLocaleTimeString()),
+  //     1000
+  //   );
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, [open?.created_at]);
 
   return (
     <InfoModal
@@ -63,12 +63,12 @@ const AddMoreBagsModal = ({
             <div className="hints" style={{ marginRight: '10px' }}>
               <div className="key">Vehicle Details</div>
               <div className="value">
-                {open?.count_finished_at
+                {/* {open?.count_finished_at
                   ? msToTime(
                       new Date(open?.count_finished_at).getTime() -
                         new Date(open?.created_at).getTime()
                     )
-                  : timeDifference}
+                  : timeDifference} */}
               </div>
             </div>
             <div className="hints">
