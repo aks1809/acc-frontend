@@ -87,13 +87,10 @@ const Index = () => {
 
   const handleStop = async data => {
     setIsLoading(true);
-    const res = await post('/api/transaction/belt-stop', data);
-    if (res.data.success) {
-      // modify existing data
-      const updatedTransactions = activeTransactions;
-      delete updatedTransactions[data?.transaction_id];
-      setActiveTransactions(updatedTransactions);
-    }
+    post('/api/transaction/belt-stop', data);
+    const updatedTransactions = activeTransactions;
+    delete updatedTransactions[data?.transaction_id];
+    setActiveTransactions(updatedTransactions);
     setIsLoading(false);
   };
 
