@@ -137,9 +137,7 @@ const Index = () => {
             ...prevState[transaction_id],
             bag_count: data?.bag_count,
             printing_count: data?.bag_count,
-            missed_labels: data?.missed_labels
-              ? data?.missed_labels
-              : prevState?.missed_labels
+            missed_labels: data?.missed_labels || '0'
           }
         };
       });
