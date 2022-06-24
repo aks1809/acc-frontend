@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { GrFlag } from 'react-icons/gr';
@@ -23,7 +22,7 @@ const AnalyticsCard = ({
     const interval = setInterval(
       () =>
         setTimeDifference(
-          moment(new Date()).diff(moment(new Date(data?.created_at)))
+          new Date().getTime() - new Date(data?.created_at).getTime()
         ),
       1000
     );
