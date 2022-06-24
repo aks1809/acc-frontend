@@ -109,27 +109,27 @@ const Index = () => {
     socket.on('entry', data => {
       const transaction_id = parseInt(data?.transaction_id, 10);
       setActiveTransactions(prevState => {
-        if (prevState?.is_bag_belt_active) {
-          // get details from bag only
-          if (!(data.is_labeled === true || data.is_labeled === false)) {
-            // data is coming from bag belt
-            return {
-              ...prevState,
-              [transaction_id]: {
-                ...prevState[transaction_id],
-                bag_count: data?.bag_count
-              }
-            };
-          }
-          return {
-            ...prevState,
-            [transaction_id]: {
-              ...prevState[transaction_id],
-              printing_count: data?.bag_count,
-              missed_labels: data?.missed_labels || '0'
-            }
-          };
-        }
+        // if (prevState?.is_bag_belt_active) {
+        //   // get details from bag only
+        //   if (!(data.is_labeled === true || data.is_labeled === false)) {
+        //     // data is coming from bag belt
+        //     return {
+        //       ...prevState,
+        //       [transaction_id]: {
+        //         ...prevState[transaction_id],
+        //         bag_count: data?.bag_count
+        //       }
+        //     };
+        //   }
+        //   return {
+        //     ...prevState,
+        //     [transaction_id]: {
+        //       ...prevState[transaction_id],
+        //       printing_count: data?.bag_count,
+        //       missed_labels: data?.missed_labels || '0'
+        //     }
+        //   };
+        // }
         // get details from printing belt
         return {
           ...prevState,
@@ -137,7 +137,9 @@ const Index = () => {
             ...prevState[transaction_id],
             bag_count: data?.bag_count,
             printing_count: data?.bag_count,
-            missed_labels: data?.missed_labels || '0'
+            missed_labels: data?.missed_labels
+              ? data?.missed_labels
+              : prevState?.missed_labels
           }
         };
       });
