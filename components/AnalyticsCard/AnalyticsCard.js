@@ -23,7 +23,7 @@ const AnalyticsCard = ({
     const interval = setInterval(
       () =>
         setTimeDifference(
-          moment(new Date()).diff(moment(new Date(open?.created_at)))
+          moment(new Date()).diff(moment(new Date(data?.created_at)))
         ),
       1000
     );
