@@ -1,3 +1,6 @@
-import { format } from 'date-fns';
+import { intervalToDuration } from 'date-fns';
 
-export const msToTime = duration => format(duration, 'hh:mm:ss');
+export const msToTime = duration => {
+  const obj = intervalToDuration({ start: 0, end: duration });
+  return `${obj.hours}:${obj.minutes}:${obj.seconds}`;
+};
