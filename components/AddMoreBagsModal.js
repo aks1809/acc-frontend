@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import InfoModal from 'components/InfoModal';
 import { msToTime } from 'utils/globalFunctions';
+import moment from 'moment';
 
 const AddMoreBagsModal = ({
   open,
@@ -17,7 +18,7 @@ const AddMoreBagsModal = ({
     const interval = setInterval(
       () =>
         setTimeDifference(
-          new Date().getTime() - new Date(open?.created_at).getTime()
+          moment(new Date()).diff(moment(new Date(open?.created_at)))
         ),
       1000
     );
