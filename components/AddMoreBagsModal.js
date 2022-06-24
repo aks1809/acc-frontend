@@ -15,10 +15,7 @@ const AddMoreBagsModal = ({
 
   useEffect(() => {
     const interval = setInterval(
-      () =>
-        setTimeDifference(
-          new Date().getTime() - new Date(open?.created_at).getTime()
-        ),
+      () => setTimeDifference(new Date(open?.created_at).toLocaleTimeString()),
       1000
     );
     return () => {
@@ -71,7 +68,7 @@ const AddMoreBagsModal = ({
                       new Date(open?.count_finished_at).getTime() -
                         new Date(open?.created_at).getTime()
                     )
-                  : msToTime(timeDifference)}
+                  : timeDifference}
               </div>
             </div>
             <div className="hints">

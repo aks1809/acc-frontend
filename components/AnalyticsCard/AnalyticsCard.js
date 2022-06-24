@@ -20,10 +20,8 @@ const AnalyticsCard = ({
 
   useEffect(() => {
     const interval = setInterval(
-      () =>
-        setTimeDifference(
-          new Date().getTime() - new Date(data?.created_at).getTime()
-        ),
+      () => () =>
+        setTimeDifference(new Date(data?.created_at).toLocaleTimeString()),
       1000
     );
     return () => {
@@ -58,7 +56,7 @@ const AnalyticsCard = ({
                 new Date(data?.count_finished_at).getTime() -
                   new Date(data?.created_at).getTime()
               )
-            : msToTime(timeDifference)}
+            : timeDifference}
         </div>
       </div>
       <div className="count-container">
