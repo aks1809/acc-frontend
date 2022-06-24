@@ -32,7 +32,7 @@ const AnalyticsCard = ({
   }, [data?.created_at]);
 
   return (
-    <Container isError={data?.count_finished_at !== null}>
+    <Container isError={data?.count_finished_at}>
       <div className="error">
         <div className="title">
           <GrFlag />
@@ -74,7 +74,7 @@ const AnalyticsCard = ({
       </div>
       <div className="rejected">
         <div className="count">
-          <Avatar>{data.missed_labels}</Avatar>
+          <Avatar>{data?.missed_labels}</Avatar>
           <h6>Rejected bags</h6>
         </div>
         <Button variant="text" onClick={rejectModalOpen}>

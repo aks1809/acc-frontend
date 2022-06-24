@@ -122,7 +122,7 @@ const Config = ({ close, handleSubmit }) => {
   const steps = getSteps(loaderType);
   const [rackno, setRackno] = useState('');
   const [wagonno, setWagonno] = useState('');
-  const [gateno, setGateno] = useState('');
+  const [gateno, setGateno] = useState(0);
   const [labelExample, setLabelExample] = useState('');
   const [labelCharacters, setLabelCharacters] = useState(0);
 
