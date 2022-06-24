@@ -30,7 +30,13 @@ const DashboardComponent = ({
       />
     );
   }
-  return <PrintingAnalysis activeTransactions={activeTransactions} />;
+  return (
+    <PrintingAnalysis
+      activeTransactions={activeTransactions}
+      handleBagIncrement={handleBagIncrement}
+      handleStop={handleStop}
+    />
+  );
 };
 
 const Index = () => {
@@ -52,7 +58,6 @@ const Index = () => {
 
   useEffect(() => {
     if (serviceMutation.isSuccess) {
-      console.log(serviceMutation.data);
       setActiveTransactions({
         ...activeTransactions,
         [serviceMutation?.data?.data?.id]: {
@@ -103,45 +108,53 @@ const Index = () => {
   useEffect(() => {
     socket.on('entry', data => {
       const transaction_id = parseInt(data?.transaction_id, 10);
-      if (activeTransactions && transaction_id in activeTransactions) {
-        if (
-          activeTransactions[transaction_id].bag_belt_id < 3 &&
-          !data?.image_location
-        ) {
-          // valid bag loader
-          // consider only label
-          setActiveTransactions({
-            ...activeTransactions,
+      setActiveTransactions(prevState => {
+        if (prevState?.is_bag_belt_active) {
+          // get details from bag only
+          if (!(data.is_labeled === true || data.is_labeled === false)) {
+            // data is coming from bag belt
+            return {
+              ...prevState,
+              [transaction_id]: {
+                ...prevState[transaction_id],
+                bag_count: data?.bag_count
+              }
+            };
+          }
+          return {
+            ...prevState,
             [transaction_id]: {
-              ...activeTransactions[transaction_id],
-              bag_count: activeTransactions[transaction_id].bag_count + 1
+              ...prevState[transaction_id],
+              printing_count: data?.bag_count,
+              missed_labels: data?.missed_labels
             }
-          });
-        } else {
-          // consider only printing
-          setActiveTransactions({
-            ...activeTransactions,
-            [transaction_id]: {
-              ...activeTransactions[transaction_id],
-              bag_count: activeTransactions[transaction_id].bag_count + 1
-            }
-          });
+          };
         }
-      }
+        // get details from printing belt
+        return {
+          ...prevState,
+          [transaction_id]: {
+            ...prevState[transaction_id],
+            bag_count: data.bag_count,
+            printing_count: data?.bag_count,
+            missed_labels: data?.missed_labels
+          }
+        };
+      });
     });
     socket.on('stop', data => {
       const transaction_id = parseInt(data?.transaction_id, 10);
-      if (activeTransactions && transaction_id in activeTransactions) {
-        setActiveTransactions({
-          ...activeTransactions,
+      setActiveTransactions(prevState => {
+        return {
+          ...prevState,
           [transaction_id]: {
-            ...activeTransactions[transaction_id],
-            stopped_at: new Date()
+            ...prevState[transaction_id],
+            count_finished_at: new Date()
           }
-        });
-      }
+        };
+      });
     });
-  }, [socket, activeTransactions]);
+  }, [socket]);
 
   if (shipmentFormOpen) {
     return (

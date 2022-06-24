@@ -28,7 +28,7 @@ const Loader = () => {
   return (
     <div className={classes.root}>
       <Image
-        src="/icons/FrinksHighRes_Logo_Gradient_Eii_pLuqH.svg"
+        src="FrinksHighRes_Logo_Gradient_Eii_pLuqH.svg"
         alt="Vaaahq"
         className={classes.image}
         height={200}

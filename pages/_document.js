@@ -12,35 +12,9 @@ export default class MyDocument extends Document {
           {/* PWA primary color */}
           <link
             rel="shortcut icon"
-            href="https://ik.imagekit.io/xv01p8jynoe/icons/colored_logo.svg?updatedAt=1641281479292"
+            href="/FrinksHighRes_Logo_Gradient_Eii_pLuqH.svg"
           />
           <meta name="theme-color" content={theme.palette.primary.main} />
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600&display=swap"
-            rel="stylesheet"
-          />
-          <link
-            rel="stylesheet"
-            type="text/css"
-            charSet="UTF-8"
-            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-          />
-          <link
-            rel="stylesheet"
-            type="text/css"
-            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-          />
-          <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossOrigin="true"
-          />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
-            rel="stylesheet"
-          />
           <meta property="og:title" content="Frinks" />
           <meta
             property="og:description"

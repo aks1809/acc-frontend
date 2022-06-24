@@ -41,11 +41,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const getSteps = () => {
+const getSteps = loaderType => {
   return [
     `Belts' details`,
-    'Truck configuration',
-    'No. of bags needed to filled'
+    `${
+      loaderType === null ? 'Loader' : loaderType === 0 ? 'Truck' : 'Wagon'
+    } configuration`,
+    'No. of bags needed to filled',
+    'Label for print data'
   ];
 };
 
@@ -82,7 +85,7 @@ const QontoStepIcon = props => {
     <div>
       {completed ? (
         <Image
-          src="/icons/completed_stepper_9e75U34X9.svg"
+          src="completed_stepper_9e75U34X9.svg"
           loader={ImageKitLoader}
           layout="fixed"
           height={25}
@@ -90,7 +93,7 @@ const QontoStepIcon = props => {
         />
       ) : (
         <Image
-          src="/icons/active_stepper_sr9KSBh3I.svg"
+          src="active_stepper_sr9KSBh3I.svg"
           loader={ImageKitLoader}
           layout="fixed"
           height={25}
@@ -104,7 +107,6 @@ const QontoStepIcon = props => {
 QontoStepIcon.propTypes = { completed: PropTypes.bool };
 
 const Config = ({ close, handleSubmit }) => {
-  const steps = getSteps();
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const [printingId, setPrintingId] = useState('');
@@ -116,6 +118,13 @@ const Config = ({ close, handleSubmit }) => {
   const [vehicleIds, setVehicleIds] = useState(null);
   const serviceMutation = ServiceQuery();
   const [infoModalOpen, setInfoModalOpen] = useState(false);
+  const [loaderType, setLoaderType] = useState(null);
+  const steps = getSteps(loaderType);
+  const [rackno, setRackno] = useState('');
+  const [wagonno, setWagonno] = useState('');
+  const [gateno, setGateno] = useState('');
+  const [labelExample, setLabelExample] = useState('');
+  const [labelCharacters, setLabelCharacters] = useState(0);
 
   useEffect(() => {
     const fetchVehicle = async id => {
@@ -148,26 +157,70 @@ const Config = ({ close, handleSubmit }) => {
   }, [activeStep, loaderId, printingId]);
 
   useEffect(() => {
-    if (licenceNumber !== '') {
+    if (
+      licenceNumber !== '' ||
+      (wagonno !== '' && rackno !== '' && gateno !== '')
+    ) {
       setActiveStep(Math.max(2, activeStep));
     }
-  }, [activeStep, licenceNumber]);
+  }, [activeStep, licenceNumber, gateno, rackno, wagonno]);
+
+  useEffect(() => {
+    if (bagType !== '' && bagCount !== '0') {
+      setActiveStep(Math.max(3, activeStep));
+    }
+  }, [activeStep, bagCount, bagType]);
 
   const StepOption = op => {
     switch (op) {
       case 1:
         return (
           <div className="form-part">
-            <div className="input-container">
-              <div className="label">License no.</div>
-              <TextField
-                type="text"
-                variant="outlined"
-                placeholder="License no."
-                value={licenceNumber}
-                onChange={e => setLicenceNumber(e.target.value)}
-              />
-            </div>
+            {loaderType === 0 ? (
+              <div className="input-container">
+                <div className="label">License no.</div>
+                <TextField
+                  type="text"
+                  variant="outlined"
+                  placeholder="License no."
+                  value={licenceNumber}
+                  onChange={e => setLicenceNumber(e.target.value)}
+                />
+              </div>
+            ) : (
+              <>
+                <div className="input-container">
+                  <div className="label">Rack no.</div>
+                  <TextField
+                    type="text"
+                    variant="outlined"
+                    placeholder="Rack no."
+                    value={rackno}
+                    onChange={e => setRackno(e.target.value)}
+                  />
+                </div>
+                <div className="input-container">
+                  <div className="label">Wagon no.</div>
+                  <TextField
+                    type="text"
+                    variant="outlined"
+                    placeholder="Wagon no."
+                    value={wagonno}
+                    onChange={e => setWagonno(e.target.value)}
+                  />
+                </div>
+                <div className="input-container">
+                  <div className="label">Gate no.</div>
+                  <TextField
+                    type="text"
+                    variant="outlined"
+                    placeholder="Gate no."
+                    value={gateno}
+                    onChange={e => setGateno(e.target.value)}
+                  />
+                </div>
+              </>
+            )}
           </div>
         );
       case 2:
@@ -194,7 +247,7 @@ const Config = ({ close, handleSubmit }) => {
                 <div className="label">No. of bags</div>
                 <div className="counter-container">
                   <Image
-                    src="/icons/subtract_KLMfUKuhe.svg"
+                    src="subtract_KLMfUKuhe.svg"
                     loader={ImageKitLoader}
                     layout="fixed"
                     height={40}
@@ -210,7 +263,7 @@ const Config = ({ close, handleSubmit }) => {
                     onChange={e => setBagCount(e.target.value)}
                   />
                   <Image
-                    src="/icons/add_W7hvn9BT_.svg"
+                    src="add_W7hvn9BT_.svg"
                     loader={ImageKitLoader}
                     layout="fixed"
                     height={40}
@@ -232,7 +285,66 @@ const Config = ({ close, handleSubmit }) => {
             </div> */}
           </>
         );
-
+      case 3:
+        return (
+          <>
+            <div className="form-part">
+              <div className="input-container">
+                <div className="label">Label example</div>
+                <TextField
+                  type="text"
+                  variant="outlined"
+                  placeholder="Label example"
+                  value={labelExample}
+                  onChange={e => setLabelExample(e.target.value)}
+                />
+              </div>
+              <div className="input-container">
+                <div className="label">No. of characters</div>
+                <div className="counter-container">
+                  <Image
+                    src="subtract_KLMfUKuhe.svg"
+                    loader={ImageKitLoader}
+                    layout="fixed"
+                    height={40}
+                    width={40}
+                    onClick={() =>
+                      setLabelCharacters(
+                        Math.max(1, parseInt(labelCharacters - 1, 10))
+                      )
+                    }
+                  />
+                  <TextField
+                    type="number"
+                    variant="outlined"
+                    value={labelCharacters}
+                    onChange={e => setLabelCharacters(e.target.value)}
+                  />
+                  <Image
+                    src="add_W7hvn9BT_.svg"
+                    loader={ImageKitLoader}
+                    layout="fixed"
+                    height={40}
+                    width={40}
+                    onClick={() =>
+                      setLabelCharacters(parseInt(labelCharacters + 1, 10))
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+            {/* <div className="form-part">
+              <Button
+                variant="outlined"
+                color="primary"
+                className="add-more-btn"
+              >
+                <MdAddBox /> Add BAG TYPE
+              </Button>
+              <div />
+            </div> */}
+          </>
+        );
       default:
         return (
           <div className="form-part">
@@ -273,7 +385,13 @@ const Config = ({ close, handleSubmit }) => {
                 <Select
                   variant="outlined"
                   value={loaderId}
-                  onChange={e => setLoaderId(e.target.value)}
+                  onChange={e => {
+                    setLoaderId(e.target.value);
+                    setLoaderType(
+                      vehicleIds.find(obj => obj.id === e.target.value)
+                        .vehicle_type
+                    );
+                  }}
                   disabled={!vehicleIds}
                 >
                   {vehicleIds &&
@@ -314,7 +432,12 @@ const Config = ({ close, handleSubmit }) => {
       loaderId,
       licenceNumber,
       bagType,
-      bagCount
+      bagCount,
+      wagonno,
+      rackno,
+      gateno,
+      labelExample,
+      labelCharacters
     });
   };
 
@@ -345,6 +468,7 @@ const Config = ({ close, handleSubmit }) => {
                   <Step
                     key={label}
                     active={
+                      index === activeStep - 3 ||
                       index === activeStep - 2 ||
                       index === activeStep - 1 ||
                       index === activeStep
@@ -370,7 +494,7 @@ const Config = ({ close, handleSubmit }) => {
               <FrinksButton
                 text="SAVE"
                 onClick={() => setInfoModalOpen(true)}
-                isInactive={bagCount === 0 || bagType === ''}
+                isInactive={labelCharacters === 0 || labelExample === ''}
               />
             </div>
           </form>

@@ -5,8 +5,10 @@ const Container = styled.div`
   background: ${props => (props.isError ? theme.palette.error.main : 'white')};
   border-radius: 10px;
   padding: 35px 20px;
-  padding-top: ${props => (props.isError ? '40px' : '20px')};
-  padding-bottom: ${props => (props.isError ? '15px' : '25px')};
+  // padding-top: ${props => (props.isError ? '40px' : '20px')};
+  padding-top: 20px;
+  // padding-bottom: ${props => (props.isError ? '15px' : '25px')};
+  padding-bottom: 25px;
   width: 280px;
   min-width: 240px;
   position: relative;
@@ -45,7 +47,8 @@ const Container = styled.div`
   .count-container {
     display: flex;
     align-items: center;
-    margin-top: ${props => (props.isError ? '0' : '10px')};
+    // margin-top: ${props => (props.isError ? '0' : '10px')};
+    margin-top: 10px;
 
     h2 {
       margin-right: 10px;
@@ -83,7 +86,8 @@ const Container = styled.div`
     padding: 8px 12px;
     position: absolute;
     left: 0;
-    bottom: ${props => (props.isError ? '60px' : '70px')};
+    // bottom: ${props => (props.isError ? '60px' : '70px')};
+    bottom: 70px;
     width: 100%;
 
     .count {
@@ -147,7 +151,8 @@ const Container = styled.div`
     -moz-box-shadow: 1px 4px 12px -8px black;
     box-shadow: 1px 4px 12px -8px black;
     color: white;
-    display: ${props => (props.isError ? 'flex' : 'none')};
+    // display: ${props => (props.isError ? 'flex' : 'none')};
+    display: none;
     background: ${theme.palette.error.main};
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;

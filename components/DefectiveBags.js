@@ -1,30 +1,46 @@
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import DefectiveBagsContainer from 'styles/defectiveBags.styles';
-import ImageKitLoader from 'utils/ImageLoader';
 import PropTypes from 'prop-types';
+import { get } from 'utils/api';
+import { BASE_URL } from 'utils/constants';
 
-const DefectiveBags = ({ missed_data }) => {
+const DefectiveBags = ({ transaction_id }) => {
+  const [rejectBags, setRejectBags] = useState(null);
+
+  useEffect(() => {
+    const fetchRejectBags = async () => {
+      const res = await get('/api/transaction/fetch-reject', {
+        id: transaction_id
+      });
+      setRejectBags(res?.data?.data);
+    };
+    fetchRejectBags();
+  }, [transaction_id]);
+
   return (
     <DefectiveBagsContainer>
-      {missed_data && missed_data.length > 0 ? (
+      {rejectBags && rejectBags.length > 0 ? (
         <>
-          {missed_data.map((e, index) => (
+          {rejectBags.map((e, index) => (
             <div className="defect" key={index}>
               <div className={`title ${index === 0 ? 'active' : ''}`}>
-                {new Date(e.created_at).toLocaleTimeString()}
+                {new Date(e?.created_at).toLocaleTimeString()}
               </div>
               <div className="stepper">
                 <div className="thumb" />
-                {index === missed_data.length - 1 ? null : (
+                {index === rejectBags.length - 1 ? null : (
                   <div className="vr" />
                 )}
               </div>
               <div className="image">
                 <div className="image-container">
                   <Image
-                    src="/Misc/cement_bag_OVJ7LTPaH.png"
-                    loader={ImageKitLoader}
+                    src={e.local_image_location}
                     layout="fill"
+                    loader={() =>
+                      `${BASE_URL}/api/transaction/images?image_location=${e.local_image_location}`
+                    }
                     objectFit="contain"
                   />
                 </div>
@@ -44,7 +60,7 @@ const DefectiveBags = ({ missed_data }) => {
 };
 
 DefectiveBags.propTypes = {
-  missed_data: PropTypes.any
+  transaction_id: PropTypes.any
 };
 
 export default DefectiveBags;

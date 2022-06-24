@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Titillium Web';
+  src: url('../public/TitilliumWeb-Regular.ttf');
+}
+
 * {
   margin: 0;
   padding: 0;

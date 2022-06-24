@@ -12,7 +12,7 @@ const Footer = () => {
         <Grid container>
           <Grid item md={2} xs={12} className="logo-container">
             <Image
-              src="/icons/high_res_logo.svg"
+              src="high_res_logo.svg"
               height={70}
               width={70}
               loader={ImageKitLoader}

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TextField, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import AnalyticsCard from 'components/AnalyticsCard';
 import { AiOutlineExclamationCircle } from 'react-icons/ai';
 import PropTypes from 'prop-types';
@@ -7,8 +7,12 @@ import AddMoreBagsModal from 'components/AddMoreBagsModal';
 import DefectiveBags from 'components/DefectiveBags';
 import InfoModal from 'components/InfoModal';
 
-const PrintingAnalysis = ({ activeTransactions }) => {
-  const [search, setSearch] = useState('');
+const PrintingAnalysis = ({
+  activeTransactions,
+  handleBagIncrement,
+  handleStop
+}) => {
+  // const [search, setSearch] = useState('');
   const [detailModalOpen, setDetailModalOpen] = useState(null);
   const [rejectModalOpen, setRejectModalOpen] = useState(null);
   const [bagModifyModalOpen, setBagModifyModalOpen] = useState(null);
@@ -19,14 +23,14 @@ const PrintingAnalysis = ({ activeTransactions }) => {
         <div className="head">
           <h2>Printing belt</h2>
           <div className="search-container">
-            <p>Search</p>
+            {/* <p>Search</p>
             <TextField
               type="text"
               variant="outlined"
               placeholder="Search"
               value={search}
               onChange={e => setSearch(e.target.value)}
-            />
+            /> */}
           </div>
         </div>
         <div className="analytics">
@@ -49,16 +53,25 @@ const PrintingAnalysis = ({ activeTransactions }) => {
                         transaction_id: e,
                         ...activeTransactions[e]
                       }}
-                      printingCard
                       rejectModalOpen={() =>
-                        setRejectModalOpen(activeTransactions[e])
+                        setRejectModalOpen({
+                          transaction_id: e,
+                          ...activeTransactions[e]
+                        })
                       }
                       bagModifyModalOpen={() =>
-                        setBagModifyModalOpen(activeTransactions[e])
+                        setBagModifyModalOpen({
+                          transaction_id: e,
+                          ...activeTransactions[e]
+                        })
                       }
                       setDetailModalOpen={() =>
-                        setDetailModalOpen(activeTransactions[e])
+                        setDetailModalOpen({
+                          transaction_id: e,
+                          ...activeTransactions[e]
+                        })
                       }
+                      printingCard
                     />
                   </Grid>
                 ))}
@@ -71,6 +84,14 @@ const PrintingAnalysis = ({ activeTransactions }) => {
           open={detailModalOpen}
           close={() => setDetailModalOpen(null)}
           heading="Transaction details"
+          handleSubmit={e => {
+            handleBagIncrement(e);
+            setDetailModalOpen(null);
+          }}
+          handleStop={e => {
+            handleStop(e);
+            setDetailModalOpen(null);
+          }}
         />
       ) : null}
       {rejectModalOpen ? (
@@ -80,7 +101,7 @@ const PrintingAnalysis = ({ activeTransactions }) => {
           title="Rejected bags"
           hideConfirm
         >
-          <DefectiveBags />
+          <DefectiveBags transaction_id={rejectModalOpen?.transaction_id} />
         </InfoModal>
       ) : null}
       {bagModifyModalOpen ? (
@@ -88,6 +109,10 @@ const PrintingAnalysis = ({ activeTransactions }) => {
           open={bagModifyModalOpen}
           close={() => setBagModifyModalOpen(null)}
           onlyBags
+          handleSubmit={e => {
+            handleBagIncrement(e);
+            setBagModifyModalOpen(null);
+          }}
         />
       ) : null}
     </>
@@ -95,7 +120,9 @@ const PrintingAnalysis = ({ activeTransactions }) => {
 };
 
 PrintingAnalysis.propTypes = {
-  activeTransactions: PropTypes.any
+  activeTransactions: PropTypes.any,
+  handleBagIncrement: PropTypes.func,
+  handleStop: PropTypes.any
 };
 
 export default PrintingAnalysis;

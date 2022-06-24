@@ -48,7 +48,7 @@ const Login = () => {
   return (
     <Container>
       <Image
-        src="/icons/high_res_logo.svg"
+        src="high_res_logo.svg"
         layout="fixed"
         height={150}
         width={150}

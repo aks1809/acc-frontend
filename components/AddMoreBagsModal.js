@@ -57,7 +57,7 @@ const AddMoreBagsModal = ({
               <div className="hints">
                 <div className="key">Vehicle Details</div>
                 <div className="value" style={{ fontWeight: '900' }}>
-                  Wagon Number | {open.container_count} Doors
+                  Wagon Number | {open.gate_no} Gate
                 </div>
               </div>
             </div>
@@ -66,10 +66,10 @@ const AddMoreBagsModal = ({
             <div className="hints" style={{ marginRight: '10px' }}>
               <div className="key">Vehicle Details</div>
               <div className="value">
-                {open.stopped_at
+                {open?.count_finished_at
                   ? msToTime(
-                      new Date(open.stopped_at).getTime() -
-                        new Date(open.created_at).getTime()
+                      new Date(open?.count_finished_at).getTime() -
+                        new Date(open?.created_at).getTime()
                     )
                   : msToTime(timeDifference)}
               </div>

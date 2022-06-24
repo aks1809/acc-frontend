@@ -49,7 +49,7 @@ const Header = ({
           tabIndex={0}
         >
           <Image
-            src="/icons/high_res_logo.svg"
+            src="high_res_logo.svg"
             loader={ImageKitLoader}
             objectFit="cover"
             layout="fill"
@@ -81,7 +81,7 @@ const Header = ({
             >
               {/* <div className="counter">20</div> */}
               <Image
-                src="/icons/notification_fU5rQCmps.svg"
+                src="notification_fU5rQCmps.svg"
                 loader={ImageKitLoader}
                 layout="fixed"
                 height={20}
@@ -98,7 +98,7 @@ const Header = ({
             >
               {/* <div className="counter blue-counter">20</div> */}
               <Image
-                src="/icons/warning_QhrmDxvk4.svg"
+                src="warning_QhrmDxvk4.svg"
                 loader={ImageKitLoader}
                 layout="fixed"
                 height={20}
@@ -108,7 +108,7 @@ const Header = ({
           </div>
           <Button className="menu-button" onClick={handleClick}>
             <Image
-              src="/icons/DotsThreeOutlineVertical_yfCTGQ8ny.svg"
+              src="DotsThreeOutlineVertical_yfCTGQ8ny.svg"
               loader={ImageKitLoader}
               layout="fixed"
               height={20}
@@ -149,7 +149,7 @@ const Header = ({
                   >
                     Logout
                     <Image
-                      src="/icons/UploadSimple_nuAcn_fBm.svg"
+                      src="UploadSimple_nuAcn_fBm.svg"
                       loader={ImageKitLoader}
                       layout="fixed"
                       height={20}

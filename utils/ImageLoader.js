@@ -5,7 +5,7 @@ const ImageKitLoader = ({ src, width, quality }) => {
     params.push(`q-${quality}`);
   }
   const paramsString = params.join(',');
-  let urlEndpoint = 'https://ik.imagekit.io/xv01p8jynoe';
+  let urlEndpoint = '/';
   if (urlEndpoint[urlEndpoint.length - 1] === '/')
     urlEndpoint = urlEndpoint.substring(0, urlEndpoint.length - 1);
   return `${urlEndpoint}/${src}?tr=${paramsString}`;

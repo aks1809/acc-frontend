@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TextField, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { AiOutlineExclamationCircle } from 'react-icons/ai';
 import AnalyticsCard from 'components/AnalyticsCard';
 import PropTypes from 'prop-types';
@@ -12,7 +12,7 @@ const ShipmentTracking = ({
   handleBagIncrement,
   handleStop
 }) => {
-  const [search, setSearch] = useState('');
+  // const [search, setSearch] = useState('');
   const [detailModalOpen, setDetailModalOpen] = useState(null);
   const [rejectModalOpen, setRejectModalOpen] = useState(null);
   const [bagModifyModalOpen, setBagModifyModalOpen] = useState(null);
@@ -23,14 +23,14 @@ const ShipmentTracking = ({
         <div className="head">
           <h2>Shipment tracking</h2>
           <div className="search-container">
-            <p>Search</p>
+            {/* <p>Search</p>
             <TextField
               type="text"
               variant="outlined"
               placeholder="Search"
               value={search}
               onChange={e => setSearch(e.target.value)}
-            />
+            /> */}
           </div>
         </div>
         <div className="analytics">
@@ -100,7 +100,7 @@ const ShipmentTracking = ({
           title="Rejected bags"
           hideConfirm
         >
-          <DefectiveBags missed_data={rejectModalOpen?.missed_data} />
+          <DefectiveBags transaction_id={rejectModalOpen?.transaction_id} />
         </InfoModal>
       ) : null}
       {bagModifyModalOpen ? (

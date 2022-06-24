@@ -60,7 +60,7 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
     '& .MuiFormControl-root': {
-      width: '54px',
+      width: '90px',
       margin: '0 10px'
     },
     '& .MuiOutlinedInput-input': {
@@ -146,7 +146,7 @@ const InfoModal = ({
               {bagCount ? (
                 <div className={classes.counterContainer}>
                   <Image
-                    src="/icons/subtract_KLMfUKuhe.svg"
+                    src="subtract_KLMfUKuhe.svg"
                     loader={ImageKitLoader}
                     layout="fixed"
                     height={40}
@@ -162,7 +162,7 @@ const InfoModal = ({
                     onChange={e => setNewBagCount(e.target.value)}
                   />
                   <Image
-                    src="/icons/add_W7hvn9BT_.svg"
+                    src="add_W7hvn9BT_.svg"
                     loader={ImageKitLoader}
                     layout="fixed"
                     height={40}

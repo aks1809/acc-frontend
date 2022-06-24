@@ -39,7 +39,7 @@ const Notification = ({ close }) => {
             <div className="thumb">
               <div className="vr invert-vr" />
               <Image
-                src="/icons/Package_5rbWbqc1A.svg"
+                src="Package_5rbWbqc1A.svg"
                 loader={ImageKitLoader}
                 layout="fixed"
                 height={60}
@@ -103,7 +103,7 @@ const Notification = ({ close }) => {
           <div className="stepper">
             <div className="thumb">
               <Image
-                src="/icons/Package_5rbWbqc1A.svg"
+                src="Package_5rbWbqc1A.svg"
                 loader={ImageKitLoader}
                 layout="fixed"
                 height={60}

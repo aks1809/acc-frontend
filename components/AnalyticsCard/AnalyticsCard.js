@@ -8,7 +8,7 @@ import { msToTime } from 'utils/globalFunctions';
 import Container from './AnalyticsCard.styles';
 
 const AnalyticsCard = ({
-  isError,
+  // isError,
   printingCard,
   packerCard,
   data,
@@ -32,7 +32,7 @@ const AnalyticsCard = ({
   }, [data?.created_at]);
 
   return (
-    <Container isError={isError}>
+    <Container isError={data?.count_finished_at !== null}>
       <div className="error">
         <div className="title">
           <GrFlag />
@@ -47,23 +47,23 @@ const AnalyticsCard = ({
           <div className="status" />
           <div className="id">
             {printingCard || packerCard ? null : (
-              <p>Loader ID: {data?.bag_belt_id}</p>
+              <p>Loader ID: {data?.bag_machine_id}</p>
             )}
-            <p>Printing belt ID: {data?.printing_belt_id}</p>
+            <p>Printing ID: {data?.tag_machine_id}</p>
           </div>
         </div>
         <div className="timer">
-          {data.stopped_at
+          {data?.count_finished_at
             ? msToTime(
-                new Date(data.stopped_at).getTime() -
-                  new Date(data.created_at).getTime()
+                new Date(data?.count_finished_at).getTime() -
+                  new Date(data?.created_at).getTime()
               )
             : msToTime(timeDifference)}
         </div>
       </div>
       <div className="count-container">
         <h2>
-          {data?.bag_count}/{data?.limit}
+          {printingCard ? data?.printing_count : data?.bag_count}/{data?.limit}
         </h2>
         <Avatar onClick={bagModifyModalOpen}>
           <IoMdAdd />
@@ -93,7 +93,7 @@ const AnalyticsCard = ({
 };
 
 AnalyticsCard.propTypes = {
-  isError: PropTypes.bool,
+  // isError: PropTypes.bool,
   printingCard: PropTypes.bool,
   packerCard: PropTypes.bool,
   data: PropTypes.any,
