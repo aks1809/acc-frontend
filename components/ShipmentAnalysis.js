@@ -12,7 +12,6 @@ const ShipmentTracking = ({
   handleBagIncrement,
   handleStop
 }) => {
-  // const [search, setSearch] = useState('');
   const [detailModalOpen, setDetailModalOpen] = useState(null);
   const [rejectModalOpen, setRejectModalOpen] = useState(null);
   const [bagModifyModalOpen, setBagModifyModalOpen] = useState(null);
@@ -22,16 +21,7 @@ const ShipmentTracking = ({
       <div className="analysis-container">
         <div className="head">
           <h2>Shipment tracking</h2>
-          <div className="search-container">
-            {/* <p>Search</p>
-            <TextField
-              type="text"
-              variant="outlined"
-              placeholder="Search"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-            /> */}
-          </div>
+          <div className="search-container" />
         </div>
         <div className="analytics">
           {activeTransactions &&

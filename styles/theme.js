@@ -58,6 +58,12 @@ const theme = createTheme({
       grey60: '#B3B3B3',
       grey40: '#CCCCCC',
       grey20: '#E6E6E6'
+    },
+    summary: {
+      red: '#FF5742',
+      green: '#00954F',
+      'light-blue': '#00C1F3',
+      'dark-blue': '#006FBA'
     }
   }
 });

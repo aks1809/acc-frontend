@@ -92,7 +92,7 @@ const Notification = ({ close }) => {
               </div>
             </div>
             <div className="incorrect-container">
-              <Button variant="outlined" color="danger">
+              <Button variant="outlined" color="inherit">
                 Incorrect Alert?
               </Button>
             </div>
@@ -121,7 +121,7 @@ const Notification = ({ close }) => {
               <div className="count">Belt ID</div>
             </div>
             <div className="incorrect-container">
-              <Button variant="outlined" color="danger">
+              <Button variant="outlined" color="inherit">
                 Incorrect Alert?
               </Button>
             </div>

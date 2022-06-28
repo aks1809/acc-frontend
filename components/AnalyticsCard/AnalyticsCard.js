@@ -30,7 +30,15 @@ const AnalyticsCard = ({
   // }, [data?.created_at]);
 
   return (
-    <Container isError={data?.count_finished_at}>
+    <Container
+      isError={
+        printingCard
+          ? data?.tag_count_finished_at
+          : data.is_bag_belt_active
+          ? data?.bag_count_finished_at
+          : data?.tag_count_finished_at
+      }
+    >
       <div className="error">
         <div className="title">
           <GrFlag />
@@ -61,7 +69,12 @@ const AnalyticsCard = ({
       </div>
       <div className="count-container">
         <h2>
-          {printingCard ? data?.printing_count : data?.bag_count}/{data?.limit}
+          {printingCard
+            ? data?.printing_count
+            : data?.is_bag_belt_active
+            ? data?.bag_count
+            : data?.printing_count}
+          /{data?.limit}
         </h2>
         <Avatar onClick={bagModifyModalOpen}>
           <IoMdAdd />

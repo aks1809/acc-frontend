@@ -16,14 +16,21 @@ const Layout = ({
   openShipmentForm,
   openMaintenanceForm,
   openNotificationForm,
-  maintenanceForm
+  maintenanceForm,
+  summaryHeader,
+  disableMinimumHeight
 }) => {
   return (
     <>
       {hideHeader ? null : (
         <>
           {alternateHeader ? (
-            <SettingHeader title={title} counter={counter} close={close} />
+            <SettingHeader
+              title={title}
+              counter={counter}
+              close={close}
+              summaryHeader={summaryHeader}
+            />
           ) : (
             <Header
               openShipmentForm={openShipmentForm}
@@ -37,7 +44,7 @@ const Layout = ({
       <div
         style={{
           background: `${changeBackground ? 'white' : '#E5E5E5'}`,
-          minHeight: '60vh'
+          minHeight: `${disableMinimumHeight ? 0 : '60vh'}`
         }}
       >
         {children}
@@ -59,7 +66,9 @@ Layout.propTypes = {
   openShipmentForm: PropTypes.func,
   openMaintenanceForm: PropTypes.func,
   openNotificationForm: PropTypes.func,
-  maintenanceForm: PropTypes.func
+  maintenanceForm: PropTypes.func,
+  summaryHeader: PropTypes.bool,
+  disableMinimumHeight: PropTypes.bool
 };
 
 export default Layout;

@@ -14,6 +14,8 @@ import { ServiceQuery } from 'reactQueries/shipmentQueries';
 import PropTypes from 'prop-types';
 import { get, post } from 'utils/api';
 import Loader from 'components/Loader';
+import Summary from 'components/Summary';
+import Report from 'components/Report';
 
 const DashboardComponent = ({
   activeSection,
@@ -29,6 +31,12 @@ const DashboardComponent = ({
         handleStop={handleStop}
       />
     );
+  }
+  if (activeSection === 3) {
+    return <Summary />;
+  }
+  if (activeSection === 4) {
+    return <Report />;
   }
   return (
     <PrintingAnalysis
@@ -103,38 +111,29 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
-    socket.on('entry', data => {
+    socket.on('bag-entry', data => {
+      // console.log(data, 'bag-entry');
       const transaction_id = parseInt(data?.transaction_id, 10);
       setActiveTransactions(prevState => {
-        // if (prevState?.is_bag_belt_active) {
-        //   // get details from bag only
-        //   if (!(data.is_labeled === true || data.is_labeled === false)) {
-        //     // data is coming from bag belt
-        //     return {
-        //       ...prevState,
-        //       [transaction_id]: {
-        //         ...prevState[transaction_id],
-        //         bag_count: data?.bag_count
-        //       }
-        //     };
-        //   }
-        //   return {
-        //     ...prevState,
-        //     [transaction_id]: {
-        //       ...prevState[transaction_id],
-        //       printing_count: data?.bag_count,
-        //       missed_labels: data?.missed_labels || '0'
-        //     }
-        //   };
-        // }
-        // get details from printing belt
         return {
           ...prevState,
           [transaction_id]: {
             ...prevState[transaction_id],
-            bag_count: data?.bag_count,
+            bag_count: data?.bag_count
+          }
+        };
+      });
+    });
+    socket.on('tag-entry', data => {
+      // console.log(data, 'tag-entry');
+      const transaction_id = parseInt(data?.transaction_id, 10);
+      setActiveTransactions(prevState => {
+        return {
+          ...prevState,
+          [transaction_id]: {
+            ...prevState[transaction_id],
             printing_count: data?.bag_count,
-            missed_labels: data?.missed_labels || '0'
+            missed_labels: data?.missed_labels
           }
         };
       });
@@ -142,11 +141,21 @@ const Index = () => {
     socket.on('stop', data => {
       const transaction_id = parseInt(data?.transaction_id, 10);
       setActiveTransactions(prevState => {
+        if (data?.is_bag_belt) {
+          // data of stop is coming from bag belt
+          return {
+            ...prevState,
+            [transaction_id]: {
+              ...prevState[transaction_id],
+              bag_count_finished_at: new Date()
+            }
+          };
+        }
         return {
           ...prevState,
           [transaction_id]: {
             ...prevState[transaction_id],
-            count_finished_at: new Date()
+            tag_count_finished_at: new Date()
           }
         };
       });
@@ -205,11 +214,23 @@ const Index = () => {
           <div className={`option ${activeSection === 2 ? 'active' : ''}`}>
             <h6 style={{ cursor: 'inherit' }}>Packer analytics</h6>
           </div>
-          <div className={`option ${activeSection === 3 ? 'active' : ''}`}>
-            <h6 style={{ cursor: 'inherit' }}>Summary</h6>
+          <div
+            className={`option ${activeSection === 3 ? 'active' : ''}`}
+            onClick={() => setActiveSection(3)}
+            onKeyPress={() => setActiveSection(3)}
+            role="button"
+            tabIndex={0}
+          >
+            <h6>Summary</h6>
           </div>
-          <div className={`option ${activeSection === 4 ? 'active' : ''}`}>
-            <h6 style={{ cursor: 'inherit' }}>Reports</h6>
+          <div
+            className={`option ${activeSection === 4 ? 'active' : ''}`}
+            onClick={() => setActiveSection(4)}
+            onKeyPress={() => setActiveSection(4)}
+            role="button"
+            tabIndex={0}
+          >
+            <h6>Reports</h6>
           </div>
         </div>
         <DashboardComponent

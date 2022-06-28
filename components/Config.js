@@ -124,7 +124,6 @@ const Config = ({ close, handleSubmit }) => {
   const [wagonno, setWagonno] = useState('');
   const [gateno, setGateno] = useState(0);
   const [labelExample, setLabelExample] = useState('');
-  const [labelCharacters, setLabelCharacters] = useState(0);
 
   useEffect(() => {
     const fetchVehicle = async id => {
@@ -212,7 +211,7 @@ const Config = ({ close, handleSubmit }) => {
                 <div className="input-container">
                   <div className="label">Gate no.</div>
                   <TextField
-                    type="text"
+                    type="number"
                     variant="outlined"
                     placeholder="Gate no."
                     value={gateno}
@@ -261,6 +260,7 @@ const Config = ({ close, handleSubmit }) => {
                     variant="outlined"
                     value={bagCount}
                     onChange={e => setBagCount(e.target.value)}
+                    style={{ width: '100px' }}
                   />
                   <Image
                     src="add_W7hvn9BT_.svg"
@@ -298,39 +298,6 @@ const Config = ({ close, handleSubmit }) => {
                   value={labelExample}
                   onChange={e => setLabelExample(e.target.value)}
                 />
-              </div>
-              <div className="input-container">
-                <div className="label">No. of characters</div>
-                <div className="counter-container">
-                  <Image
-                    src="subtract_KLMfUKuhe.svg"
-                    loader={ImageKitLoader}
-                    layout="fixed"
-                    height={40}
-                    width={40}
-                    onClick={() =>
-                      setLabelCharacters(
-                        Math.max(1, parseInt(labelCharacters - 1, 10))
-                      )
-                    }
-                  />
-                  <TextField
-                    type="number"
-                    variant="outlined"
-                    value={labelCharacters}
-                    onChange={e => setLabelCharacters(e.target.value)}
-                  />
-                  <Image
-                    src="add_W7hvn9BT_.svg"
-                    loader={ImageKitLoader}
-                    layout="fixed"
-                    height={40}
-                    width={40}
-                    onClick={() =>
-                      setLabelCharacters(parseInt(labelCharacters + 1, 10))
-                    }
-                  />
-                </div>
               </div>
             </div>
             {/* <div className="form-part">
@@ -436,8 +403,7 @@ const Config = ({ close, handleSubmit }) => {
       wagonno,
       rackno,
       gateno,
-      labelExample,
-      labelCharacters
+      labelExample
     });
   };
 
@@ -494,7 +460,7 @@ const Config = ({ close, handleSubmit }) => {
               <FrinksButton
                 text="SAVE"
                 onClick={() => setInfoModalOpen(true)}
-                isInactive={labelCharacters === 0 || labelExample === ''}
+                isInactive={labelExample === ''}
               />
             </div>
           </form>

@@ -2,10 +2,9 @@ import styled from '@emotion/styled';
 import theme from 'styles/theme';
 
 const Container = styled.div`
-  min-width: 800px;
-  max-width: 800px;
+  padding: 20px;
+  background: white;
   margin: auto;
-  padding-top: 80px;
 
   .defect {
     display: flex;
@@ -14,17 +13,21 @@ const Container = styled.div`
       position: relative;
 
       .thumb {
-        width: 70px;
-        height: 70px;
+        width: 50px;
+        height: 50px;
         background: #efde48;
         border-radius: 100px;
-        margin: 0 25px;
+        margin: 0 15px;
         margin-top: 3px;
         position: relative;
         z-index: 1;
         display: flex;
         align-items: center;
         justify-content: center;
+      }
+
+      .blank-thumb {
+        margin: 0 25px;
       }
 
       .vr {
@@ -42,21 +45,22 @@ const Container = styled.div`
     }
 
     .title {
-      font-size: 16px;
+      font-size: 12px;
       font-weight: 900;
       text-align: right;
       opacity: 0.6;
-      min-width: 70px;
+      min-width: 55px;
     }
   }
 
   .defect > .title {
-    padding-top: 27px;
+    padding-top: 18px;
   }
 
   .image {
     display: flex;
     align-items: flex-start;
+    margin-bottom: 20px;
 
     .image-container {
       position: relative;
@@ -71,7 +75,7 @@ const Container = styled.div`
   }
 
   .notification {
-    min-width: 80%;
+    width: 100%;
     padding-bottom: 35px;
 
     .info-container {
@@ -95,11 +99,11 @@ const Container = styled.div`
       }
 
       .sub-title {
-        font-size: 15px;
+        font-size: 12px;
       }
 
       .count {
-        font-size: 25px;
+        font-size: 20px;
         font-weight: 900;
       }
     }
@@ -141,8 +145,6 @@ const Container = styled.div`
   }
 
   .incorrect-container {
-    margin-top: 20px;
-
     .MuiButtonBase-root {
       border-color: red;
       color: red;

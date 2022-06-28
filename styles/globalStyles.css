@@ -3,6 +3,16 @@
   src: url('../public/TitilliumWeb-Regular.ttf');
 }
 
+@font-face {
+  font-family: 'Inter';
+  src: url('../public/Inter-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../public/Roboto-Regular.ttf');
+}
+
 * {
   margin: 0;
   padding: 0;
