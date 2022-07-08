@@ -12,7 +12,7 @@ import Layout from './Layout';
 
 const Summary = () => {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
-  const [summaryData, setSummaryData] = useState(null);
+  const [summaryData] = useState(null);
 
   useEffect(() => {
     const fetchSummary = async () => {
