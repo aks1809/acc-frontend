@@ -78,34 +78,16 @@ const Container = styled.div`
     width: 100%;
     padding-bottom: 35px;
 
-    .info-container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: white;
-      color: black;
-      padding: 10px 30px;
-      border-radius: 10px;
-      min-width: 80%;
-      margin-bottom: 35px;
+    .ticket-title {
+      color: #434343;
+      font-weight: 900;
+      font-size: 18px;
+    }
 
-      .title {
-        text-align: left;
-        color: black;
-        margin-bottom: 8px;
-        font-size: 20px;
-        font-weight: 900;
-        opacity: 1;
-      }
-
-      .sub-title {
-        font-size: 12px;
-      }
-
-      .count {
-        font-size: 20px;
-        font-weight: 900;
-      }
+    .description {
+      font-size: 12px;
+      margin-bottom: 20px;
+      margin-top: 8px;
     }
 
     .image-container {

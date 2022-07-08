@@ -1,15 +1,30 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import theme from 'styles/theme';
+import FrinksButton from 'components/FrinksButton';
 import Container from 'styles/summary.styles';
 import { TextField, Grid, Button } from '@material-ui/core';
 import NotificationContainer from 'styles/summaryNotification.styles';
 import MaintenanceContainer from 'styles/maintenanceNotification.styles';
 import ImageKitLoader from 'utils/ImageLoader';
+import { get } from 'utils/api';
 import Layout from './Layout';
 
 const Summary = () => {
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+  const [summaryData, setSummaryData] = useState(null);
+
+  useEffect(() => {
+    const fetchSummary = async () => {
+      const data = await get('/api/transaction/summary', {
+        date
+      });
+      console.log(data);
+    };
+    if (!summaryData) {
+      fetchSummary();
+    }
+  }, [date, summaryData]);
 
   return (
     <Container>
@@ -105,66 +120,56 @@ const Summary = () => {
                       <div className="vr" />
                     </div>
                     <div className="notification">
-                      <div className="info-container">
-                        <div className="info">
-                          <div className="title">Incorrect bags</div>
-                          <div className="sub-title">
-                            5 bags passed unmarked.
-                          </div>
-                        </div>
-                        <div className="count">5 bags</div>
+                      <div className="ticket-title">Ticket #43211</div>
+                      <div className="description">
+                        Printing belt | Printing belt 1:6326 | Belt jammed | --
                       </div>
-                      <div className="image-container">
-                        <div className="image">
-                          <div className="image-container">
-                            <Image
-                              src="/cement_bag.png"
-                              loader={ImageKitLoader}
-                              layout="fill"
-                              objectFit="contain"
-                            />
-                          </div>
-                          <div className="time">8.48am</div>
-                        </div>
-                        <div className="image">
-                          <div className="image-container">
-                            <Image
-                              src="/cement_bag.png"
-                              loader={ImageKitLoader}
-                              layout="fill"
-                              objectFit="contain"
-                            />
-                          </div>
-                          <div className="time">8.48am</div>
-                        </div>
-                      </div>
-                      <div className="incorrect-container">
-                        <Button variant="outlined" color="inherit">
-                          Incorrect Alert?
-                        </Button>
+                      <div className="button-container">
+                        <FrinksButton
+                          variant="outlined"
+                          color="inherit"
+                          text="Edit Ticket"
+                          style={{
+                            fontSize: '12px',
+                            height: '40px',
+                            marginRight: '14px'
+                          }}
+                        />
+                        <FrinksButton
+                          color="inherit"
+                          text="Mark Complete"
+                          style={{ fontSize: '12px', height: '40px' }}
+                        />
                       </div>
                     </div>
                   </div>
                   <div className="defect">
-                    <div className="title">8:44am</div>
+                    <div className="title">Just Now</div>
                     <div className="stepper">
                       <div className="blank-thumb" />
                       <div className="vr" />
                     </div>
                     <div className="notification">
-                      <div className="info-container">
-                        <div className="info">
-                          <div className="title">Printing Belt</div>
-                          <div className="sub-title">
-                            Belt was marked in idle status.
-                          </div>
-                        </div>
-                        <div className="count">Belt ID</div>
+                      <div className="ticket-title">Ticket #43211</div>
+                      <div className="description">
+                        Printing belt | Printing belt 1:6326 | Belt jammed | --
                       </div>
-                      <div className="incorrect-container">
-                        <Button variant="outlined" color="inherit">
-                          Incorrect Alert?
-                        </Button>
+                      <div className="button-container">
+                        <FrinksButton
+                          variant="outlined"
+                          color="inherit"
+                          text="Edit Ticket"
+                          style={{
+                            fontSize: '12px',
+                            height: '40px',
+                            marginRight: '14px'
+                          }}
+                        />
+                        <FrinksButton
+                          color="inherit"
+                          text="Mark Complete"
+                          style={{ fontSize: '12px', height: '40px' }}
+                        />
                       </div>
                     </div>
                   </div>

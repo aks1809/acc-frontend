@@ -16,6 +16,7 @@ import { get, post } from 'utils/api';
 import Loader from 'components/Loader';
 import Summary from 'components/Summary';
 import Report from 'components/Report';
+import PackerAnalysis from 'components/PackerAnalysis';
 
 const DashboardComponent = ({
   activeSection,
@@ -26,6 +27,15 @@ const DashboardComponent = ({
   if (activeSection === 0) {
     return (
       <ShipmentAnalysis
+        activeTransactions={activeTransactions}
+        handleBagIncrement={handleBagIncrement}
+        handleStop={handleStop}
+      />
+    );
+  }
+  if (activeSection === 2) {
+    return (
+      <PackerAnalysis
         activeTransactions={activeTransactions}
         handleBagIncrement={handleBagIncrement}
         handleStop={handleStop}
@@ -211,8 +221,14 @@ const Index = () => {
           >
             <h6>Printing belt</h6>
           </div>
-          <div className={`option ${activeSection === 2 ? 'active' : ''}`}>
-            <h6 style={{ cursor: 'inherit' }}>Packer analytics</h6>
+          <div
+            className={`option ${activeSection === 2 ? 'active' : ''}`}
+            onClick={() => setActiveSection(2)}
+            onKeyPress={() => setActiveSection(2)}
+            role="button"
+            tabIndex={0}
+          >
+            <h6>Packer analytics</h6>
           </div>
           <div
             className={`option ${activeSection === 3 ? 'active' : ''}`}

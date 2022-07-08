@@ -7,6 +7,12 @@ const Container = styled.div`
     margin-top: 50px;
   }
 
+  #date-range-picker {
+    padding: 12.5px 10px;
+    border-radius: 5px;
+    border: 0px;
+  }
+
   .left-portion {
     width: 50%;
     padding-right: 20px;

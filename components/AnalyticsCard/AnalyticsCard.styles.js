@@ -4,11 +4,11 @@ import theme from 'styles/theme';
 const Container = styled.div`
   background: ${props => (props.isError ? theme.palette.error.main : 'white')};
   border-radius: 10px;
-  padding: 35px 20px;
+  padding: ${props => (props.packerCard ? '35px 5px' : '35px 20px')};
   // padding-top: ${props => (props.isError ? '40px' : '20px')};
   padding-top: 20px;
   // padding-bottom: ${props => (props.isError ? '15px' : '25px')};
-  padding-bottom: 25px;
+  padding-bottom: ${props => (props.packerCard ? '8px' : '25px')};
   width: 280px;
   min-width: 240px;
   position: relative;
@@ -16,6 +16,7 @@ const Container = styled.div`
   .head {
     font-size: 18px;
     align-items: flex-start !important;
+    padding: ${props => (props.packerCard ? '0 15px' : '0 0')};
 
     .id-container {
       display: flex;
@@ -49,6 +50,7 @@ const Container = styled.div`
     align-items: center;
     // margin-top: ${props => (props.isError ? '0' : '10px')};
     margin-top: 10px;
+    padding: ${props => (props.packerCard ? '0 15px' : '0 0')};
 
     h2 {
       margin-right: 10px;
@@ -180,6 +182,36 @@ const Container = styled.div`
       cursor: pointer;
       font-weight: 600;
       font-size: 10px;
+    }
+  }
+
+  .progress-container {
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 13px;
+    padding-bottom: 5px;
+
+    .MuiLinearProgress-root {
+      height: 20px;
+      background: #f5f5f5;
+      box-shadow: inset 0px 4.75152px 9.50303px rgb(0 0 0 / 10%);
+      border-radius: 4.75152px;
+    }
+
+    .MuiLinearProgress-barColorPrimary {
+      background-color: ${props => props.progressBackground};
+    }
+
+    .productivity {
+      font-family: 'Roboto';
+      font-size: 13px;
+      margin-top: 10px;
+      color: #808080;
+
+      .bold {
+        font-weight: 900;
+        color: black;
+      }
     }
   }
 `;
